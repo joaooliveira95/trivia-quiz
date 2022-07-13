@@ -3,6 +3,8 @@ import parse from "html-react-parser";
 import { IAnswer } from "../types/quiz.types";
 import { Link } from "react-router-dom";
 import { ReactElement } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 
 interface IQuizResultsCard {
   answers: IAnswer[];
@@ -32,6 +34,13 @@ export default function QuizResultsCard({
               })}
             >
               <p>
+                <span className="mr-2">
+                  {answer.answer === answer.correct_answer ? (
+                    <FontAwesomeIcon icon={solid("circle-check")} />
+                  ) : (
+                    <FontAwesomeIcon icon={solid("circle-xmark")} />
+                  )}
+                </span>
                 <b>{parse(answer.question)}</b>
               </p>
               <br />
