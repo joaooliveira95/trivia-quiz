@@ -2,21 +2,21 @@ import parse from "html-react-parser";
 import { IAnswer } from "../types/quiz.types";
 import { ReactElement } from "react";
 
-interface IQuizQuestionCard {
+interface IQuizQuestion {
   numberOfQuestions: number;
   onNextQuestion: (answer: string) => void;
   question: IAnswer;
   quizStep: number;
 }
 
-export default function QuizQuestionCard({
+export default function QuizQuestion({
   question,
   onNextQuestion,
   quizStep,
   numberOfQuestions,
-}: IQuizQuestionCard): ReactElement {
+}: IQuizQuestion): ReactElement {
   return (
-    <div className="card has-text-centered px-6">
+    <div>
       <div>
         <h2 className="title is-2 is-size-3-mobile is-spaced">
           {question?.category}

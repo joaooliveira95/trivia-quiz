@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-import { getTriviaQuestions } from "../api/api";
-import QuizQuestionCard from "../components/QuizQuestionCard.component";
-import QuizResultsCard from "../components/QuizResultsCard.component";
+import LoadingCard from "../components/Loading.component";
+import QuizQuestion from "../components/QuizQuestion.component";
+import QuizResults from "../components/QuizResults.component";
 import { IAnswer } from "../types/quiz.types";
+import { getTriviaQuestions } from "../api/api";
+import { useEffect, useState } from "react";
 
 export default function QuizPage() {
   const [loading, setLoading] = useState(true);
@@ -31,24 +32,27 @@ export default function QuizPage() {
 
   return (
     <>
-      {quiz.length && score === quiz.length && (
+      {!!quiz.length && score === quiz.length && (
         <Confetti width={window.innerWidth} height={window.innerHeight} />
       )}
       <div className="container is-max-desktop">
-        {!loading && (
-          <>
-            {quizStep < quiz.length ? (
-              <QuizQuestionCard
-                question={quiz[quizStep]}
-                onNextQuestion={onNextQuestion}
-                quizStep={quizStep + 1}
-                numberOfQuestions={quiz.length}
-              />
-            ) : (
-              <QuizResultsCard answers={answers} score={score} />
-            )}
-          </>
-        )}
+        <div className="card has-text-centered px-6">
+          {loading && <LoadingCard />}
+          {!loading && (
+            <>
+              {quizStep < quiz.length ? (
+                <QuizQuestion
+                  question={quiz[quizStep]}
+                  onNextQuestion={onNextQuestion}
+                  quizStep={quizStep + 1}
+                  numberOfQuestions={quiz.length}
+                />
+              ) : (
+                <QuizResults answers={answers} score={score} />
+              )}
+            </>
+          )}
+        </div>
       </div>
     </>
   );
