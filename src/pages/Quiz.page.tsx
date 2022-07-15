@@ -3,6 +3,7 @@ import LoadingCard from "../components/Loading.component";
 import QuizQuestion from "../components/QuizQuestion.component";
 import QuizResults from "../components/QuizResults.component";
 import { IAnswer } from "../types/quiz.types";
+import { Navigate } from "react-router-dom";
 import { getTriviaQuestions } from "../api/api";
 import { useEffect, useState } from "react";
 
@@ -38,6 +39,7 @@ export default function QuizPage() {
       <div className="container is-max-desktop">
         <div className="card has-text-centered px-6">
           {loading && <LoadingCard />}
+          {!loading && !quiz.length && <Navigate to={{ pathname: "/" }} />}
           {!loading && (
             <>
               {quizStep < quiz.length ? (
